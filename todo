@@ -1,0 +1,64 @@
+[x] Cheak if the script run as root or super user.
+[] 
+
+Repos:
+=======
+[x] Add RPM Fusion repos
+[x] Add google chrome repo
+[x] Add Orical Virtual Box repo
+[x] Add Moceap's Ojuba repo
+[x] Add green recorder repo
+[x] Add Kenzy repo
+[x] Add vs code repo
+
+Configrations:
+==============
+[x] Auto mount from the gui
+[] Lam-Alef problem
+[] config gedit to display arabic texts with windows encoding
+[] config totem to display arabic subtitle with windows encoding
+
+Packages:
+=========
+[x] multimedia codecs
+[x] vlc
+[x] audacity-freeworld
+[x] rar, zip and 7zip
+[x] lm_sensors
+[x] gnome tweak tool
+[x] gnome terminal for nautilus
+[x] virtaal
+[x] Sqlite browser
+[x] vs code
+[x] nano
+[x] gedit plugins
+[x] vim-syntastic-python
+[x] keepass2
+[x] golang
+[x] nasm
+[x] xterm
+[x] mc
+[x] screenfetch
+[x] openbox
+[x] mediawriter
+[x] google-chrome
+[x] thunderbird
+[x] hunspell-ar
+[x] youtube-dl 
+
+Python:
+[x] python3 ipython
+[x] pylint (python 2, 3)
+[x] virtualenv (python 2, 3)
+[x] virtualenv-doc
+[x] sqlalchemy
+[x] flask
+
+Ojuba & Islamic & arabic apps:
+[x] othman
+[x] hijra applet
+[x] arabic fonts
+[x] dawawin
+[x] dawawin-extra-books
+
+
