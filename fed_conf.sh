@@ -18,7 +18,12 @@ RPMFUSION_REPOS () {
         https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
         https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-    echo "Done."
+    if [ $? -ne 0 ]
+    then
+        echo "Problem hapened. RPM Fusion does not installed."
+    else
+        echo "Done."
+    fi
 }
 
 
@@ -35,7 +40,12 @@ enabled=0
 enabled_metadata=1
 _EOF_
     
-    echo "Done."
+    if [ $? -ne 0 ]
+    then
+        echo "Problem hapened. Ojuba repository does not Added."
+    else
+        echo "Added Ojuba to the repositores."
+    fi
 }
 
 
@@ -233,11 +243,15 @@ thunderbird"
 
 
 INSTALL_GROUPS () {
-    local GROUPS
-    GROUPS="\"Development tools\" 
-\"arabic support\" -x kacst*"
+    #local DEV
+    #DEV="Development tools"
 
-    dnf groupinstall $GROUPS
+    #local ARA
+    #ARA='"arabic support" --exclude=kacst*'
+
+    #dnf --assumeyes groupinstall $DEV $ARA
+
+    dnf --assumeyes groupinstall "arabic support" --exclude=kacst* "Development tools"
 }
 
 ######################################################################
@@ -270,53 +284,68 @@ EOF
 
 
 ## cheak if the script run as administer
-#if [ $EUID -ne 0 ]
-#then
-#    echo "You must run the script as root, or run it using sudo."
-#    exit 1
-#fi
+if [ $EUID -ne 0 ]
+then
+    echo "You must run the script as root, or run it using sudo."
+    exit 1
+fi
 
 echo
-echo "Hi, welcome to fedora `rpm -E %fedora`"
+echo "Hi, welcome to fedora `rpm -E %fedora`."
+echo "This script will confiure your distripution."
 
 ## don't forget to change it to the real path
 ## /etc/yum.repos.d/
-REPO_PATH="test/yum.repos.d"
+REPO_PATH="/etc/yum.repos.d/"
 INSTALL_CMD="dnf --assumeyes install"
 
 echo
-echo 'Would you like to update the distro now? [y,n]'
+printf 'Would you like to update the distro now? [y, n] '
 read UPDATE_CHEAK
 
-
-if [ $UPDATE_CHEAK -eq 'y' -o  UPDATE_CHEAK -eq 'Y' ]
+if [ -z $UPDATE_CHEAK ]
 then
-    "Updating..."
-    dnf --assumeyes update
+    ## without this if cluse the shell return
+    ## this error "too many arguments"
+
+    echo "Skiped."
+
+elif [ $UPDATE_CHEAK == 'y' -o  $UPDATE_CHEAK == 'Y' ]
+then
+    echo "Updating..."
+    #dnf --assumeyes update
 
     if [ $? -ne 0 ]
     then
         echo
         echo "There is a problem."
-     fi
 
-    echo
-    echo "Done..."
-
+    else
+        echo
+        echo "Done"
+    fi
+else
+    echo "Skiped."
 fi
 
 
-
-#RPMFUSION_REPOS 
-#GOOGLE_CHROME_REPO 
-#ORECAL_VIRTUALBOX 
-#VSCODE_REPO 
+echo
+echo "Adding repos..."
+#RPMFUSION_REPOS
+#OJUBA_OF_MOCEAP
+#GOOGLE_CHROME_REPO
+#ORECAL_VIRTUALBOX
+#VSCODE_REPO
 #GREEN_RECORDER_REPO
 #KENZY_REPO
 
+
+echo
+echo "Installing apps..."
+#INSTALL_MULIMEDIA_PKGS
 #INSTALL_THESE_PKG
 #INSTALL_DEV_PKGS
-#INSTALL_MULIMEDIA_PKGS
-#INSTALL_GROUPS 
+#INSTALL_GROUPS
 
+echo "Good bye!"
 exit
